@@ -15,6 +15,9 @@ img_number = 0
 
 image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
 
+num_images = str(len(image_list))
+status = Label(root, text="Image 1 of " + num_images, bd=1, relief=SUNKEN, anchor=E)
+
 my_label = Label(image=my_img1)
 my_label.grid(row=0, column=0, columnspan=3)
 
@@ -24,6 +27,10 @@ def forward():
         img_number = 0
     else:
         img_number += 1
+
+    global status
+    status = Label(root, text="Image " + str(img_number + 1) + " of " + num_images, bd=1, relief=SUNKEN, anchor=E)
+    status.grid(row=2, column=0, columnspan=3, sticky=W+E)
 
     global my_label
     my_label.grid_forget()
@@ -38,6 +45,10 @@ def back():
     else:
         img_number -= 1
 
+    global status
+    status = Label(root, text="Image " + str(img_number + 1) + " of " + num_images, bd=1, relief=SUNKEN, anchor=E)
+    status.grid(row=2, column=0, columnspan=3, sticky=W+E)
+
     global my_label
     my_label.grid_forget()
     my_label = Label(image=image_list[img_number])
@@ -50,5 +61,7 @@ button_forward = Button(root, text=">>", width=28, command=forward)
 button_back.grid(row=1, column=0)
 button_exit.grid(row=1, column=1)
 button_forward.grid(row=1, column=2)
+
+status.grid(row=2, column=0, columnspan=3, sticky=W+E)
 
 root.mainloop()
